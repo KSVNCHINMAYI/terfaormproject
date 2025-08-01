@@ -268,24 +268,3 @@ output "lb_dns_name" {
   value       = aws_lb.external-elb.dns_name
 }
 
-resource "aws_s3_bucket" "example" {
-  bucket = "ckbkt2001"
-  tags = {
-    Name        = "ckbkt2001"
-    Environment = "Dev"
-  }
-}
-
-resource "aws_iam_user" "one" {
-  for_each = var.iam_users
-  name     = each.value
-}
-
-variable "iam_users" {
-  type    = set(string)
-  default = ["userone", "usertwo", "userthree", "userfour"]
-}
-
-resource "aws_iam_group" "two" {
-  name = "DevOpsGrp"
-}
