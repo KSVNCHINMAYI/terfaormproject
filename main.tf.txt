@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "5.62.0"
+      version = "6.6.0"
     }
   }
 }
@@ -98,7 +98,7 @@ resource "aws_instance" "webserver1" {
   ami                    = "ami-0492447090ced6eb5"
   instance_type          = "t2.micro"
   availability_zone      = "ap-south-1a"
-  key_name               = "MyKey"
+  key_name               = "saichinnu"
   vpc_security_group_ids = [aws_security_group.webserver-sg.id]
   subnet_id              = aws_subnet.web-subnet-1.id
   user_data              = file("apache.sh")
@@ -109,7 +109,7 @@ resource "aws_instance" "webserver2" {
   ami                    = "ami-0492447090ced6eb5"
   instance_type          = "t2.micro"
   availability_zone      = "ap-south-1b"
-  key_name               = "MyKey"
+  key_name               = "saichinnu"
   vpc_security_group_ids = [aws_security_group.webserver-sg.id]
   subnet_id              = aws_subnet.web-subnet-2.id
   user_data              = file("apache.sh")
@@ -121,7 +121,7 @@ resource "aws_instance" "appserver1" {
   ami                    = "ami-0492447090ced6eb5"
   instance_type          = "t2.micro"
   availability_zone      = "ap-south-1a"
-  key_name               = "MyKey"
+  key_name               = "saichinnu"
   vpc_security_group_ids = [aws_security_group.appserver-sg.id]
   subnet_id              = aws_subnet.application-subnet-1.id
   tags = { Name = "app Server-1" }
@@ -131,7 +131,7 @@ resource "aws_instance" "appserver2" {
   ami                    = "ami-0492447090ced6eb5"
   instance_type          = "t2.micro"
   availability_zone      = "ap-south-1b"
-  key_name               = "MyKey"
+  key_name               = "saichinnu"
   vpc_security_group_ids = [aws_security_group.appserver-sg.id]
   subnet_id              = aws_subnet.application-subnet-2.id
   tags = { Name = "app Server-2" }
