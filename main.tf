@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "5.62.0"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.5.1"
+    }
   }
 }
 
@@ -11,11 +15,15 @@ provider "aws" {
   region = "ap-south-1"
 }
 
+# Random ID for unique ALB Target Group name
+resource "random_id" "tgid" {
+  byte_length = 4
+}
+
+# VPC
 resource "aws_vpc" "my-vpc" {
   cidr_block = "10.0.0.0/16"
-  tags = {
-    Name = "Terra-VPC"
-  }
+  tags = { Name = "Terra-VPC" }
 }
 
 # Public Subnets
@@ -235,7 +243,7 @@ resource "aws_lb" "external-elb" {
 }
 
 resource "aws_lb_target_group" "external-elb" {
-  name     = "ALB-TG"
+  name     = "ALB-TG-${random_id.tgid.hex}"
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.my-vpc.id
@@ -267,4 +275,3 @@ output "lb_dns_name" {
   description = "The DNS name of the load balancer"
   value       = aws_lb.external-elb.dns_name
 }
-
